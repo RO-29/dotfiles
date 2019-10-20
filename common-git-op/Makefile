@@ -10,8 +10,8 @@ all-git-rebase-dev:
 	$(call ALL_RUN,git pull --rebase origin dev)
 all-git-push-dev:
 	$(call ALL_RUN,git push -u origin dev)
-
-
+all-git-rebase-master:
+	$(call ALL_RUN,git checkout master && git pull --rebase origin master && git checkout dev)
 
 #GOLANG_LIBS_COMMON_OPS
 .PHONY: all-run
