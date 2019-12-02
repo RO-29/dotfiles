@@ -12,6 +12,10 @@ all-git-push-dev:
 	$(call ALL_RUN,git push -u origin dev)
 all-git-rebase-master:
 	$(call ALL_RUN,git checkout master && git pull --rebase origin master && git checkout dev)
+all-git-commit-common-files:
+	$(call ALL_RUN,git add .travis/ Makefile* && git commit -m "update common files")
+all-git-commit-golang-lib:
+	$(call ALL_RUN,git add go.mod go.sum && git commit -m "update golang libraries")
 
 #GOLANG_LIBS_COMMON_OPS
 .PHONY: all-run
