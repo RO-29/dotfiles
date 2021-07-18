@@ -3,13 +3,13 @@ ALL_COMMAND=$(ALL_DIR) | xargs -n 1 -I {} $(1)
 ALL_RUN=$(call ALL_COMMAND,sh -c 'echo {} && cd {} && $(1)')
 .PHONY: all-git-commit
 all-git-commit:
-	$(call ALL_RUN,git add go.mod go.sum && git commit -m "update dependencies")
+	$(call ALL_RUN,git add go.mod go.sum Makefile* .github/ ruleguard/ Dockerfile && git commit -m "update dependencies")
 all-git-checkout:
 	$(call ALL_RUN,git checkout go.mod go.sum)
 all-git-rebase-dev:
 	$(call ALL_RUN,git pull --rebase origin dev)
-all-git-push-dev:
-	$(call ALL_RUN,git push -u origin dev)
+all-git-pull-push:
+	$(call ALL_RUN,git pull && git push)
 all-git-rebase-master:
 	$(call ALL_RUN,git checkout master && git pull --rebase origin master && git checkout dev)
 all-git-commit-common-files:
