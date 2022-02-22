@@ -3,7 +3,9 @@ ALL_COMMAND=$(ALL_DIR) | xargs -n 1 -I {} $(1)
 ALL_RUN=$(call ALL_COMMAND,sh -c 'echo {} && cd {} && $(1)')
 .PHONY: all-git-commit
 all-git-commit:
-	$(call ALL_RUN,git add go.mod go.sum Makefile* .github/ ruleguard/ Dockerfile .gitignore .golangci.yml && git commit -m "update dependencies")
+	$(call ALL_RUN,git add go.mod go.sum Makefile* .github/ ruleguard/ Dockerfile .dockerignore .gitignore .golangci.yaml && git commit -m "update dependencies")
+all-git-commit-del:
+	$(call ALL_RUN,git add .golangci.yml && git commit -m "update dependencies")
 all-git-checkout:
 	$(call ALL_RUN,git checkout go.mod go.sum)
 all-git-rebase-dev:
@@ -15,9 +17,14 @@ all-git-pull:
 all-git-rebase-master:
 	$(call ALL_RUN,git checkout master && git pull --rebase origin master && git checkout dev)
 all-git-commit-common-files:
-	$(call ALL_RUN,git add .github/ ruleguard/ Dockerfile .gitignore .golangci.yml Makefile* && git commit -m "update common files")
+	$(call ALL_RUN,git add .github/ ruleguard/ Dockerfile .gitignore .dockerignore .golangci.yaml Makefile* && git commit -m "update common files")
 all-git-commit-golang-lib:
 	$(call ALL_RUN,git add go.mod go.sum && git commit -m "update golang libraries")
+all-fix-kafka:
+	$(call ALL_RUN,go get -v -u -d github.com/segmentio/kafka-go@latest && git add go.mod go.sum && git commit -m "update kafka version" && git pull && git push)
+
+all-fix-k:
+	$(call ALL_RUN,go get -v -u -d github.com/segmentio/kafka-go@latest && git add go.mod go.sum && git commit -m "update kafka version" && git pull && git push)
 
 #GOLANG_LIBS_COMMON_OPS
 .PHONY: all-run
@@ -67,7 +74,7 @@ all-cloud-build-local:
 
 .PHONY: all-copy-common
 all-copy-common:
-	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk Makefile-travis.mk .travis .golangci.yml {})
+	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk Makefile-travis.mk .travis .golangci.yaml {})
 .PHONY: all-common-file-update
 all-common-file-update:
 	$(call ALL_RUN,git add Makefile-common.mk Makefile-project.mk Makefile-travis.mk && git commit -m "copy common files [ci skip]")
