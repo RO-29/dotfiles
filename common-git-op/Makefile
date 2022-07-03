@@ -1,4 +1,4 @@
-ALL_DIR=cd $(dir) && (ls -d -1 * | grep -v golang-libraries | grep -v Makefile | grep -v sib_go-*.code-workspace)
+ALL_DIR=cd $(dir) && (ls -d -1 * | grep -v golang-libraries | grep -v sib_go-*.code-workspace)
 ALL_COMMAND=$(ALL_DIR) | xargs -n 1 -I {} $(1)
 ALL_RUN=$(call ALL_COMMAND,sh -c 'echo {} && cd {} && $(1)')
 .PHONY: all-git-commit
@@ -25,6 +25,9 @@ all-fix-kafka:
 
 all-fix-k:
 	$(call ALL_RUN,go get -v -u -d github.com/segmentio/kafka-go@latest && git add go.mod go.sum && git commit -m "update kafka version" && git pull && git push)
+
+all-checkout-common:
+	$(call ALL_RUN,git checkout Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard)
 
 #GOLANG_LIBS_COMMON_OPS
 .PHONY: all-run
@@ -74,7 +77,7 @@ all-cloud-build-local:
 
 .PHONY: all-copy-common
 all-copy-common:
-	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk Makefile-travis.mk .travis .golangci.yaml {})
+	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard .travis .golangci.yaml {})
 .PHONY: all-common-file-update
 all-common-file-update:
-	$(call ALL_RUN,git add Makefile-common.mk Makefile-project.mk Makefile-travis.mk && git commit -m "copy common files [ci skip]")
+	$(call ALL_RUN,git add Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard && git commit -m "copy common files [ci skip]")
