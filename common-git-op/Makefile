@@ -80,6 +80,12 @@ all-cloud-build-local:
 .PHONY: all-copy-common
 all-copy-common:
 	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard .travis .golangci.yaml {})
+
+all-rm-common:
+	$(call ALL_RUN,rm -f .github/workflows/*.yml .github/workflows/centralise-deployment.yaml .github/workflows/staging-auto-deployment.yaml && ls .github/workflows )
+
+all-github-action-commit:
+	$(call ALL_RUN,git add .github && git commit -m "rm .github/workflows extra files" )
 .PHONY: all-common-file-update
 all-common-file-update:
 	$(call ALL_RUN,git add Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard && git commit -m "copy common files [ci skip]")
