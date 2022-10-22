@@ -14,6 +14,8 @@ all-git-pull-push:
 	$(call ALL_RUN,git pull && git push)
 all-git-pull:
 	$(call ALL_RUN,git pull)
+all-git-push:
+	$(call ALL_RUN,git push)
 all-git-rebase-master:
 	$(call ALL_RUN,git checkout master && git pull --rebase origin master && git checkout dev)
 all-git-commit-common-files:
