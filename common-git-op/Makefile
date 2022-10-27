@@ -82,7 +82,7 @@ all-copy-common:
 	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard .travis .golangci.yaml {})
 
 all-rm-common:
-	$(call ALL_RUN,rm -f .github/workflows/*.yml .github/workflows/centralise-deployment.yaml .github/workflows/staging-auto-deployment.yaml && ls .github/workflows )
+	$(call ALL_RUN,rm -f .github/workflows/*.yml .github/workflows/staging-argocd-auto-deployment.yaml .github/workflows/staging-auto-deployment-run.yaml && ls .github/workflows )
 
 all-github-action-commit:
 	$(call ALL_RUN,git add .github && git commit -m "rm .github/workflows extra files" )
