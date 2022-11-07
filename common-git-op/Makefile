@@ -82,10 +82,10 @@ all-copy-common:
 	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard .travis .golangci.yaml {})
 
 all-rm-common:
-	$(call ALL_RUN,ls && rm -f .github/workflows/PULL_REQUEST_TEMPLATE.md && ls .github/workflows )
+	$(call ALL_RUN,ls && rm -f .github/workflows/create-argocd-deployment.yaml && ls .github/workflows )
 
 all-github-action-commit:
-	$(call ALL_RUN,git add .github && git commit -m "rm .github/workflows extra files" )
+	$(call ALL_RUN,git add .github && git commit -m "fix cd.yaml use main from remote" && git pull && git push )
 .PHONY: all-common-file-update
 all-common-file-update:
 	$(call ALL_RUN,git add Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard && git commit -m "copy common files [ci skip]")
