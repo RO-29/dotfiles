@@ -81,11 +81,11 @@ all-cloud-build-local:
 all-copy-common:
 	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard .travis .golangci.yaml {})
 
-all-rm-common:
-	$(call ALL_RUN,ls && rm -f .github/workflows/create-argocd-deployment.yaml && ls .github/workflows )
+all-mv-common:
+	$(call ALL_RUN,ls && mv CODEOWNERS .github/. && ls .github/workflows )
 
 all-github-action-commit:
 	$(call ALL_RUN,git add .github && git commit -m "fix cd.yaml use main from remote" && git pull && git push )
 .PHONY: all-common-file-update
 all-common-file-update:
-	$(call ALL_RUN,git add Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard && git commit -m "copy common files [ci skip]")
+	$(call ALL_RUN,git add Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard CODEOWNERS && git commit -m "copy common files")
