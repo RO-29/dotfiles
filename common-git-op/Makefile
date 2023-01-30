@@ -106,4 +106,14 @@ all-git-pr-:
 	$(call ALL_RUN,export GITHUB_TOKEN="" && sleep 5 && git add . && git commit -m "lint changes for go1.19.5" && git push && gh pr create --title "STFFENG-000: GO 1.19.5 upgrade" --body "Go 1.19.x upgrade && lint 1.50.x upgrade" )
 
 all-git-pr-create:
-	$(call ALL_RUN,export GITHUB_TOKEN="" && sleep 5 && gh pr create --title "STFFENG-000: GO 1.19.5 upgrade" --body "Go 1.19.x upgrade && lint 1.50.x upgrade" )
+	$(call ALL_RUN,export GITHUB_TOKEN="" && sleep 10 && gh pr create --title "STFFENG-000: GO 1.19.5 upgrade" --body "Go 1.19.x upgrade && lint 1.50.x upgrade" )
+
+all-git-fix:
+	$(call ALL_RUN,rm .github/workflows/doc-publishing.yaml && git add . && git commit -m "fix lint changes" && git push )
+
+all-ls:
+	$(call ALL_RUN, ls .github/workflows )
+
+.PHONY: all-mod-update
+all-mod-update:
+	$(call ALL_RUN,make mod-update)
