@@ -97,4 +97,13 @@ all-git-pull-checkout-push:
 	$(call ALL_RUN,git pull && git checkout -b feature/go-19.5-upgrade && git push )
 
 all-mod-update-lint:
-	$(call ALL_RUN,make mod-update && make lint)
+	$(call ALL_RUN, make lint)
+
+all-del-DS-STORE:
+	$(call ALL_RUN, find . -name .DS_Store -print0 | xargs -0 rm )
+
+all-git-pr-:
+	$(call ALL_RUN,export GITHUB_TOKEN="" && sleep 5 && git add . && git commit -m "lint changes for go1.19.5" && git push && gh pr create --title "STFFENG-000: GO 1.19.5 upgrade" --body "Go 1.19.x upgrade && lint 1.50.x upgrade" )
+
+all-git-pr-create:
+	$(call ALL_RUN,export GITHUB_TOKEN="" && sleep 5 && gh pr create --title "STFFENG-000: GO 1.19.5 upgrade" --body "Go 1.19.x upgrade && lint 1.50.x upgrade" )
