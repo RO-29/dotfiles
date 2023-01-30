@@ -92,3 +92,5 @@ all-find-common:
 
 all-rm-common-yml:
 	$(call ALL_RUN, rm -f .github/workflows/centralise-deployment.yaml .github/workflows/release.yaml .github/workflows/staging-auto-deployment.yaml  && ls .github/workflows )
+all-github-pull-checkout-commit:
+	$(call ALL_RUN,git pull && git checkout -b feature/go-19.5-upgrade && git push )
