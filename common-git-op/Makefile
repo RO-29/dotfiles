@@ -111,6 +111,9 @@ all-git-pr-create:
 all-git-fix:
 	$(call ALL_RUN,rm .github/workflows/doc-publishing.yaml && git add . && git commit -m "fix lint changes" && git push )
 
+all-git-rm-docs-publish:
+	$(call ALL_RUN,rm .github/workflows/doc-publishing.yaml)
+
 all-ls:
 	$(call ALL_RUN, ls .github/workflows )
 
