@@ -19,7 +19,7 @@ all-git-push:
 all-git-rebase-master:
 	$(call ALL_RUN,git checkout master && git pull --rebase origin master && git checkout dev)
 all-git-commit-common-files:
-	$(call ALL_RUN,git add .github/ ruleguard/ Dockerfile .gitignore .dockerignore .golangci.yaml Makefile* && git commit -m "update common files")
+	$(call ALL_RUN,git add .github/ ruleguard/ Dockerfile .gitignore .dockerignore .golangci.yaml Makefile* go.* && git commit -m "update common files")
 all-git-commit-golang-lib:
 	$(call ALL_RUN,git add go.mod go.sum && git commit -m "update golang libraries")
 all-fix-kafka:
@@ -67,7 +67,7 @@ all-mod-update:
 
 .PHONY: all-mod-update-golang-libraries
 all-mod-update-golang-libraries:
-	$(call ALL_RUN,make mod-update-golang-libraries)
+	$(call ALL_RUN,make mod-update-golang-libraries && make mod-tidy)
 
 .PHONY: all-mod-tidy
 all-mod-tidy:
@@ -116,3 +116,6 @@ all-git-rm-docs-publish:
 
 all-ls:
 	$(call ALL_RUN, ls .github/workflows )
+
+all-mod-tidy:
+	$(call ALL_RUN, make mod-tidy )
