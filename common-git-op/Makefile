@@ -79,7 +79,7 @@ all-cloud-build-local:
 
 .PHONY: all-copy-common
 all-copy-common:
-	$(call ALL_COMMAND,cp -r Makefile-common.mk Makefile-project.mk .gitignore .github .dockerignore .golangci.yaml ruleguard .travis .golangci.yaml {})
+	$(call ALL_COMMAND,ls {}/.github/workflows)
 
 all-github-action-commit:
 	$(call ALL_RUN,git add .github && git commit -m "fix cd.yaml use main from remote" && git pull && git push )
@@ -116,7 +116,3 @@ all-git-rm-docs-publish:
 
 all-ls:
 	$(call ALL_RUN, ls .github/workflows )
-
-.PHONY: all-mod-update
-all-mod-update:
-	$(call ALL_RUN,make mod-update)
