@@ -121,4 +121,4 @@ all-mod-tidy:
 	$(call ALL_RUN, make mod-tidy )
 
 all-git-add:
-	$(call ALL_RUN, make mod-tidy && git add . && git commit -m "mssola user_agent => mssola useragent upgrade" && git pull && make lint && git push )
+	$(call ALL_RUN, make mod-tidy && make lint && git add . && git commit -m "mssola user_agent => mssola useragent upgrade" && git pull && git push )
